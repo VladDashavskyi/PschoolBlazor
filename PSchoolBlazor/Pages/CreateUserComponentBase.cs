@@ -28,7 +28,7 @@ namespace PSchoolBlazor.Pages
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(30);
-                var response = await httpClient.GetAsync($"https://localhost:7080/Users?role=1");
+                var response = await httpClient.GetAsync($"{Const.ApiUrl}/Users?role=1");
                 var result = await response.Content.ReadAsStringAsync();
                 var Out = await response.Content.ReadFromJsonAsync<List<UserDto>>();
                 Users = Out;
@@ -61,7 +61,7 @@ namespace PSchoolBlazor.Pages
                 {
                     httpClient.Timeout = TimeSpan.FromSeconds(30);
                     var body = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-                    var response = await httpClient.PostAsync("https://localhost:7080/User", body);
+                    var response = await httpClient.PostAsync($"{Const.ApiUrl}/User", body);
                     var result = await response.Content.ReadAsStringAsync();
 
                 };

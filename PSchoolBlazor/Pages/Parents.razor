@@ -60,7 +60,7 @@ else
             using (Http = new HttpClient())
             {
                 Http.Timeout = TimeSpan.FromSeconds(30);
-                var response = await Http.GetAsync("https://localhost:7080/Users?role=1");
+                var response = await Http.GetAsync($"{Const.ApiUrl}/Users?role=1");
 
                 var Out = await response.Content.ReadFromJsonAsync<List<UserDto>>();
                 parents = Out;     
@@ -80,7 +80,7 @@ else
             {
 
                 Http.Timeout = TimeSpan.FromSeconds(30);
-                await Http.DeleteAsync($"https://localhost:7080/User{id}");
+                await Http.DeleteAsync($"{Const.ApiUrl}/User{id}");
 
             };
             StateHasChanged();

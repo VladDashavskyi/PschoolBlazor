@@ -21,7 +21,7 @@ namespace PSchoolBlazor.Pages
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(30);
-                var response = await httpClient.GetAsync($"https://localhost:7080/Users{UserId}");
+                var response = await httpClient.GetAsync($"{Const.ApiUrl}/Users{UserId}");
                 var result = await response.Content.ReadAsStringAsync();
                 var Out = await response.Content.ReadFromJsonAsync<UserDto>();
                 UserMasterVM = Out;
@@ -36,7 +36,7 @@ namespace PSchoolBlazor.Pages
                 {
                     httpClient.Timeout = TimeSpan.FromSeconds(30);
                     var body = new StringContent(JsonConvert.SerializeObject(UserMasterVM), Encoding.UTF8, "application/json");
-                    var response = await httpClient.PutAsync($"https://localhost:7080/User{UserId}", body);
+                    var response = await httpClient.PutAsync($"{Const.ApiUrl}/User{UserId}", body);
                     var result = await response.Content.ReadAsStringAsync();
 
                 };
