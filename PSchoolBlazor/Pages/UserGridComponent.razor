@@ -1,0 +1,100 @@
+﻿@page "/UserGrid"
+@page "/UserGrid/{Page:int}"
+@inject HttpClient Http
+@using PSchoolBlazor.Dto;
+
+@if (parents == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Grid</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input
+                           class="form-control" type="text" placeholder="Filter...">
+
+                </div>
+                <div class="form-group col-md-4">
+                    <button class="btn btn-success">Search</button>
+                    <button class="btn btn-danger">Clear</button>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>FirstName</th>
+                            <th>MiddleName</th>
+                            <th>LastName</th>
+                            <th>EmailId</th>
+                            <th>MobileNo</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int counter = 1;
+                        }
+                        @foreach (var usermaster in parents)
+                        {
+
+                            <tr @key="usermaster.UserId">
+                                <td> @counter</td>
+                                <td>@usermaster.FirstName</td>
+                                <td>@usermaster.LastName</td>
+                                <td><a class="btn btn-warning" href="/EditUser/@usermaster.UserId">Edit</a></td>
+                                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                            </tr>
+
+                            counter++;
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="row">
+                <ul class="pagination">
+                    @for (var i = 1; i <= 10; i++)
+                    {
+                        <li class="page-item @(i == 1 ? "active" : "")">
+                            <a href="/UserGrid/@i" class="page-link">@i</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@code {
+
+    private List<UserDto>? parents;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            using (Http = new HttpClient())
+            {
+                Http.Timeout = TimeSpan.FromSeconds(30);
+                var response = await Http.GetAsync("https://localhost:7080/Users?role=1");
+
+                var Out = await response.Content.ReadFromJsonAsync<List<UserDto>>();
+                parents = Out;
+
+            };
+
+
+        }
+        catch (Exception ex) { }
+    }
+}

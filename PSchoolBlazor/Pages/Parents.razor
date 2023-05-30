@@ -1,0 +1,100 @@
+﻿@page "/parents"
+@using PSchoolBlazor.Dto;
+@inject HttpClient Http
+@inject NavigationManager NavManager 
+
+<PageTitle>Parents</PageTitle>
+
+<h1>Parents</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (parents == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        <td><a type="button" class="btn btn-link" href="/createUser/1">Add</a></td>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>First Name </th>
+                <th>LastName </th>
+                <th>DateOfBirth</th>
+                <th>Email</th>
+                <th>RoleId</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var parents in parents)
+            {
+                <tr>
+                    <td>@parents.UserId</td>
+                    <td>@parents.FirstName</td>
+                    <td>@parents.LastName</td>
+                    <td>@parents.DateOfBirth.ToShortDateString()</td>
+                    <td>@parents.Email</td>
+                    <td>@parents.Role</td>
+                    <td><a class="btn btn-warning" href="/editUser/@parents.UserId">Edit</a></td>
+                    @*/@parents.UserId*@
+                    <td><button type="button" class="btn btn-danger" @onclick="@(e => Delete(@parents.UserId))"> Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<UserDto>? parents;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            using (Http = new HttpClient())
+            {
+                Http.Timeout = TimeSpan.FromSeconds(30);
+                var response = await Http.GetAsync("https://localhost:7080/Users?role=1");
+
+                var Out = await response.Content.ReadFromJsonAsync<List<UserDto>>();
+                parents = Out;     
+
+            } ;
+
+
+        }
+        catch (Exception ex) { }
+
+
+    }
+    protected async void Delete(int id)
+    {
+        try {
+            using (Http = new HttpClient())
+            {
+
+                Http.Timeout = TimeSpan.FromSeconds(30);
+                await Http.DeleteAsync($"https://localhost:7080/User{id}");
+
+            };
+            StateHasChanged();
+            NavManager.NavigateTo("/", false);
+
+
+        }
+        catch(Exception ex)
+        {
+                
+        
+        }
+    }
+
+
+    
+}

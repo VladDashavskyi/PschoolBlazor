@@ -1,0 +1,66 @@
+﻿[
+  {
+    "userId": 1,
+    "firstName": "Vlad",
+    "lastName": "Dashavskyi",
+    "dateOfBirth": "2003-01-18T00:00:00",
+    "email": "dasdasd@gmail.com",
+    "roleId": 1
+  },
+  {
+    "userId": 4,
+    "firstName": "Maksym",
+    "lastName": "Prohor",
+    "dateOfBirth": "2005-05-01T00:00:00",
+    "email": "dasdas@gmail.com",
+    "roleId": 2
+  },
+  {
+    "userId": 5,
+    "firstName": "Ivan",
+    "lastName": "Mykytun",
+    "dateOfBirth": "2000-10-10T00:00:00",
+    "email": "asdasdad@gmail.com",
+    "roleId": 1
+  },
+  {
+    "userId": 10,
+    "firstName": "asd",
+    "lastName": "asd",
+    "dateOfBirth": "1990-10-10T00:00:00",
+    "email": "asdasdas",
+    "roleId": 2
+  },
+  {
+    "userId": 12,
+    "firstName": "asd",
+    "lastName": "asd",
+    "dateOfBirth": "1990-10-10T00:00:00",
+    "email": "asdasdas",
+    "roleId": 1
+  },
+  {
+    "userId": 13,
+    "firstName": "asd",
+    "lastName": "asd",
+    "dateOfBirth": "1990-10-10T00:00:00",
+    "email": "asdasdas",
+    "roleId": 1
+  },
+  {
+    "userId": 14,
+    "firstName": "adasd",
+    "lastName": "dasasd",
+    "dateOfBirth": "1990-10-10T00:00:00",
+    "email": "asdadsas",
+    "roleId": 1
+  },
+  {
+    "userId": 15,
+    "firstName": "string",
+    "lastName": "string",
+    "dateOfBirth": "2023-05-29T00:00:00",
+    "email": "string",
+    "roleId": 1
+  }
+]
